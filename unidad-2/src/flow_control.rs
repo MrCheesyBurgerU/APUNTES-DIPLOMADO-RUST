@@ -30,6 +30,7 @@ pub fn match_example(x: i32) {
     // Permite operaciones sobre rangos, disyunciones, etc
 
     match x {
+        
         0 => println!("x is zero"),
         1 => println!("x is one"),
         2 | 3 => println!("x is two or three"), // varios valores posibles
@@ -43,6 +44,37 @@ pub fn match_example(x: i32) {
         // son directas, nada de menores o cosas de ese estilo
     }
 }
+
+
+pub fn is_vowel() {
+
+    let letter: char = 'e';
+
+    // Aca se muestra otor ejemplo haciendo match con una expresión disyunta
+    match letter {
+        'a' | 'e' | 'i' | 'o' | 'u' => println!("Vowel"),
+        _ => println!("Consonant")
+    }
+}
+
+
+fn classify_number(x: i32) {
+
+    // Se pueden usar condiciones compuestas jugando con if
+    // Se debe dejar la variable evaluada como retorno del if
+
+    // Clasifica si el número es cero, par positivo, par negativo
+    // o si es impar o no aplica
+
+    match x {
+        n if n == 0 => println!("Es cero"),
+        n if n < 0 && n % 2 == 0 => println!("Es par negativo"),
+        n if n > 0 && n % 2 == 0 => println!("Es par positivo"),
+        _ => println!("No es par (es impar o no aplica)"),
+    }
+}
+
+
 
 
 
