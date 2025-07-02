@@ -1,5 +1,5 @@
 mod conversions;
-mod collections;
+mod functions;
 mod variables;
 mod utils;
 mod types;

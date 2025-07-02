@@ -74,7 +74,6 @@ pub fn characters() {
     println!("Emoji = {}", emoji);
 }
 
-
 pub fn tuples() {
 
     // Por defecto las tuplas son inmutables, pero se puede modificar 
@@ -103,3 +102,75 @@ pub fn tuples() {
     println!("Tuple = {:?}", tuple);
 }
 
+
+pub fn arrays() {
+
+    // Los arrays tienen tamaño fijo conocido en tiempo de compilación.
+    // Todos los elementos deben ser del mismo tipo.
+
+    // Se puede especificar el tipo y la longitud
+    let a: [i32; 4] = [10, 20, 30, 40];
+
+    // También pueden ser inferidos automáticamente
+    let _b = [1, 2, 3];
+
+    // Inicialización repetida: valor, número de repeticiones
+    let _c = [0; 5]; // [0, 0, 0, 0, 0]
+
+    // Los elementos pueden accederse por índice
+    let first = a[0];
+    let last = a[a.len() - 1];
+
+    // Al imprimir un array, también se puede usar el marcador {:?}
+    println!("\n======  ARRAY [TYPES] ======");
+    println!("Array a = {:?}", a);
+    println!("Primer valor de a = {}", first);
+    println!("Último valor de a = {}", last);
+}
+
+
+pub fn structs() {
+    
+    // Una struct permite definir tipos personalizados con campos nombrados.
+    // Se puede declarar dentro de la función para ejemplos simples
+    
+    struct Persona {
+        nombre: String,
+        edad: u8,
+    }
+
+    // Instanciación de la estructura
+    let persona: Persona = Persona {
+        nombre: String::from("Alice"),
+        edad: 30,
+    };
+
+    // Acceso a los campos con notación de punto
+    println!("\n======  STRUCT [TYPES] ======");
+    println!("Nombre: {}", persona.nombre);
+    println!("Edad: {}", persona.edad);
+
+    // Las structs también pueden imprimirse con {:?} si derivan Debug
+    // Para imprimir directamente, deberíamos derivar #[derive(Debug)]
+}
+
+
+pub fn enums() {
+
+    // Los enums permiten definir un tipo que puede ser una de varias variantes.
+    enum Estado {
+        Activo,
+        Inactivo,
+        Pendiente(u8), // También pueden tener datos asociados
+    }
+
+    // Ejemplo de uso
+    let estado: Estado = Estado::Pendiente(3);
+
+    println!("\n======  ENUM [TYPES] ======");
+    match estado {
+        Estado::Activo => println!("Estado: Activo"),
+        Estado::Inactivo => println!("Estado: Inactivo"),
+        Estado::Pendiente(dias) => println!("Estado: Pendiente desde hace {} días", dias),
+    }
+}
