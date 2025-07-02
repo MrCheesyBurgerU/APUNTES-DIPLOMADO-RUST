@@ -107,5 +107,80 @@ pub fn classify_direction() {
 }
 
 
+pub fn for_in_loop() {
+
+    // Permite iterar sobre los elementos que se encuentran en 
+    // un objeto o tipo iterable
+
+    // Se pueden usar rangos exclusivos .. o rangos inclusivos ..=
+    // La parte izquierda siempre es inclusiva
+
+    for item in 0..10 {
+        if item == 5 {
+            println!("Salta = {}", item);
+            continue;
+        }
+        println!("Número iterado = {}", item);
+    }
+
+    // Ahora tambien se puede hacer un for inclusivo
+
+    for item in 0..=10 {
+        if item == 5 {
+            println!("Salta = {}", item);
+            continue;
+        }
+        println!("Número iterado = {}", item);
+    }
+}
 
 
+pub fn while_loop() {
+
+    // Se declara mutable para poder modificarla
+    let mut number = 10;
+
+    // Imprime de 10 a 1, que es cuando se deja de cumplir la condición
+    while number != 0 {
+        println!("Número = {}", number);
+        number -= 1;
+    }
+}
+
+
+pub fn pure_loop() {
+
+    // Para imprimir desde el cero hasta el nueve
+    let mut number = 0;
+
+    // Se pueden hacer loop puros, donde la condicion de parada la define
+    // un break
+    loop {
+        println!("Número = {}", number);
+        if number == 10 {
+            break;
+        }
+        number += 1;
+    }
+}
+
+
+pub fn pure_loop_with_return() -> i32 {
+
+    // Se declara la variable mutable
+    let mut number = 0;
+
+    // El loop itera hasta el 10, pero en este caso lo retorna
+    // El valor retornado se almacena en la variable result
+    let result = loop {
+        println!("Número = {}", number);
+        if number == 10 {
+            // Retorna `number` como valor del loop
+            break number 
+        }
+        number += 1;
+    };
+
+    // Retorna el valor resultante del loop
+    result 
+}
