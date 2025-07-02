@@ -50,7 +50,7 @@ pub fn is_vowel() {
 
     let letter: char = 'e';
 
-    // Aca se muestra otor ejemplo haciendo match con una expresión disyunta
+    // Aca se muestra otro ejemplo haciendo match con una expresión disyunta
     match letter {
         'a' | 'e' | 'i' | 'o' | 'u' => println!("Vowel"),
         _ => println!("Consonant")
@@ -58,7 +58,7 @@ pub fn is_vowel() {
 }
 
 
-fn classify_number(x: i32) {
+pub fn classify_number(x: i32) {
 
     // Se pueden usar condiciones compuestas jugando con if
     // Se debe dejar la variable evaluada como retorno del if
@@ -74,6 +74,37 @@ fn classify_number(x: i32) {
     }
 }
 
+
+pub fn classify_tuple() {
+
+    // También se puede usar match para trabajar con otros tipos de datos
+    let tuple: (i32, i32) = (4, -6);
+
+    // Match tiene la capacidad de desempaquetar los tipos de datos
+    match tuple {
+        (x, y) if x >= 0 && y >= 0 => println!("Está en el cuadrante 1"),
+        _ => println!("No está en el cuadrante 1"),
+    }
+}
+
+
+pub fn classify_direction() {
+
+    // Clasificacion exactamente sobre los ejes
+    let point: (i32, i32) = (0, 5); 
+
+    match point {
+        (0, y) if y > 0 => println!("Está en el norte"),
+        (0, y) if y < 0 => println!("Está en el sur"),
+        (x, 0) if x > 0 => println!("Está en el este"),
+        (x, 0) if x < 0 => println!("Está en el oeste"),
+        (0, 0) => println!("Está en el origen"),
+        _ => println!("Está fuera de los ejes cardinales"),
+    }
+
+    // Si donde estan los ceros ponemos _ entonces ese valor se ignora
+    // en el match, osea que cualquier número hace el match
+}
 
 
 
