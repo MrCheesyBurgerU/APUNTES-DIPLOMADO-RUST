@@ -63,3 +63,58 @@ pub fn query_hashmap_with_unwrap() {
         None => println!("{} is not in the list", name_to_query),
     }
 }
+
+
+pub fn entry_or_insert_example() {
+    // Creamos e inicializamos un HashMap mutable
+    let mut scores: HashMap<String, u32> = HashMap::new();
+
+    // Insertamos un valor por primera vez usando entry + or_insert
+    scores.entry("Alice".to_string()).or_insert(50);
+
+    // Intentamos insertar un valor para Alice, pero como ya existe, no se sobrescribe
+    scores.entry("Alice".to_string()).or_insert(80);
+
+    // Insertamos un nuevo valor para una clave que no estaba
+    scores.entry("Bob".to_string()).or_insert(70);
+
+    // Mostramos el resultado
+    for (name, score) in &scores {
+        println!("{} has score {}", name, score);
+    }
+}
+
+
+pub fn hashmap_ownership_and_borrowing() {
+    // Creamos dos Strings que vamos a insertar en el HashMap
+    let key = String::from("Alice");
+    let value = String::from("Engineer");
+
+    // Creamos un HashMap mutable
+    let mut people: HashMap<String, String> = HashMap::new();
+
+    // --- Transferencia de propiedad ---
+    // Insertamos key y value en el mapa: la propiedad se mueve al HashMap
+    people.insert(key, value);
+
+    // key y value ya no se pueden usar después de este punto
+    // println!("{}", key);     
+    // println!("{}", value);  
+
+    // --- Préstamo ---
+    // Consultamos por referencia sin mover la propiedad
+    if let Some(profession) = people.get("Alice") {
+        println!("Alice is a {}", profession);
+    }
+
+    // --- Préstamo mutable ---
+    // Modificamos el valor asociado a una clave usando entry + or_insert_mutable
+    if let Some(job) = people.get_mut("Alice") {
+        job.push_str(" (Rust developer)");
+    }
+
+    // Mostramos el contenido final del HashMap
+    for (name, profession) in &people {
+        println!("{}: {}", name, profession);
+    }
+}
