@@ -14,6 +14,8 @@
 // El desenrrollado solo ocurre si el panic no es atrapado mediante mecanismos como `catch_unwind`
 // Si no se captura, el programa terminará abruptamente después de liberar los recursos.
 
+use std::fs::File;
+
 pub fn fail_hard() {
     // Provca un panic de forma explicita y termina el programa
     panic!("Se produjo un error irrecuperable");
@@ -29,3 +31,12 @@ pub fn access_out_of_bounds() {
     println!("Valor: {}", value);
 }
 
+
+// Intenta abrir un archivo llamado "datos.txt"
+// Si falla, provoca panic con un mensaje personalizado usando expect
+pub fn open_file_with_expect() {
+    let file = File::open("datos.txt").expect("Failed to open datos.txt");
+    // Si el archivo se abre bien, se puede continuar con otras operaciones
+    println!("File opened successfully: {:?}", file);
+    // Osea permite que el error o el pánico generado sea personalizado 
+}

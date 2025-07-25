@@ -1,5 +1,5 @@
-use std::io::{self, Read};
-use std::fs::File;
+use std::io::{self, ErrorKind, Read};
+use std::fs::{File, Metadata};
 
 // Intenta abrir un archivo y leer su contenido sin usar el operador ?
 pub fn read_file_manual(path: &str) -> Result<String, io::Error> {
@@ -61,5 +61,71 @@ pub fn divide(a: f64, b: f64) -> Result<f64, &'static str> {
     } else {
         Ok(a / b)
     }
+}
+
+
+// Intenta abrir el archivo "saludo.txt". Si no existe, lo crea.
+// Si ocurre otro tipo de error, se produce un panic.
+// Finalmente, devuelve los metadatos del archivo.
+pub fn open_or_create_and_get_metadata() -> Metadata {
+    let file_result = File::open("saludo.txt");
+
+    let file = match file_result {
+        // Archivo abierto correctamente
+        Ok(f) => f, 
+        Err(e) => match e.kind() {
+            ErrorKind::NotFound => match File::create("saludo.txt") {
+                // Archivo no existía, se crea exitosamente
+                Ok(f) => f, 
+                // Error creando el archivo
+                Err(e) => panic!("Error creating file: {}", e), 
+            },
+            // Otro tipo de error, se puede agregar mejor manejo
+            _ => panic!("Error opening file: {}", e), 
+        },
+    };
+
+    // Intenta obtener los metadatos del archivo
+    // unwrap puede causar panic si falla
+    file.metadata().unwrap() 
+}
+
+
+// Busca el primer número par en una lista y lo devuelve, o None si no hay
+pub fn find_first_even(numbers: &[i32]) -> Option<i32> {
+    // Itera sobre la lista y encuentra el primer número divisible por 2
+    for &num in numbers {
+        if num % 2 == 0 {
+            // Valor válido encontrado
+            return Some(num); 
+        }
+    }
+    // No se encontró ningún número par
+    None 
+}
+
+
+// Define una enumeración personalizada para representar distintos tipos de errores
+#[derive(Debug)]
+enum MyError {
+    FileNotFound(String),
+    FileCorrupted(String),
+}
+
+
+// Esta función intenta abrir un archivo y obtener su tamaño.
+// Si ocurre un error, devuelve un `MyError` específico.
+fn handle_file() -> Result<u64, MyError> {
+    // Intenta abrir el archivo "Noexisto.txt"
+    let file = File::open("Noexisto.txt");
+
+    // Maneja el resultado del intento de abrir el archivo
+    let mut file = match file {
+        Ok(file) => file,
+        Err(_) => return Err(MyError::FileNotFound("The file does not exist".to_string())),
+    };
+
+    // Retorna el tamaño del archivo si todo salió bien
+    Ok(file.metadata().unwrap().len())
 }
 
