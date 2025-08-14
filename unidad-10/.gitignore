@@ -1,0 +1,33 @@
+# Archivos y carpetas generados por Cargo
+/target/
+**/*.rs.bk
+
+# Archivos de configuración de entorno
+/.env
+/.env.*
+
+# Archivos del sistema o editor
+.DS_Store
+Thumbs.db
+
+# Archivos de lock y backup de editores
+*.swp
+*.swo
+*~
+*.bak
+
+# Configuración específica del entorno de desarrollo
+.idea/
+.vscode/
+*.code-workspace
+
+# Archivos de depuración
+*.log
+
+# Archivos de Rust compilados (innecesarios para Git)
+*.rlib
+*.rmeta
+
+# Coverage o análisis estático
+/coverage/
+clippy.lint
